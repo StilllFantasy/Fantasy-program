@@ -16,7 +16,7 @@ int main()
         s.push_back(i);
     }
     s.push_back(n+1);
-    if(s.size()<=2)
+    if(s.size()==2)
     cout<<n;
     else if(s.size()==3)
     cout<<n-1;
@@ -27,10 +27,7 @@ int main()
             if((s.size()-3) < (n+2-(s[i]-s[i-2])-1))
                 mx=max(mx,s[i]-s[i-2]-1);
             else
-            {
-                mx=max(mx,s[i]-s[i-1]-1);
                 mx=max(mx,s[i]-s[i-2]-2);
-            }
         }
         cout<<mx;
     }

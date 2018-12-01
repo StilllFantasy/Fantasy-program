@@ -8,7 +8,6 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		long long mn=9999987654321;
 		int n,x,y,d;
 		cin>>n>>x>>y>>d;
 		if(abs(x-y)%d!=0&&(y-1)%d!=0&&(n-y)%d!=0)
