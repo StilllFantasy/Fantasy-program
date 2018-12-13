@@ -3,7 +3,7 @@
 using namespace std;
 int main()
 {
-    freopen("stdin.in","r",stdin);
+   // freopen("stdin.in","r",stdin);
     string s[100];
     int k = 0;
     while(cin>>s[k])
