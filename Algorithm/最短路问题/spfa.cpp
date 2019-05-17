@@ -1,39 +1,41 @@
 #include<iostream>
 #include<vector>
 #include<queue>
-#include<cstdio>
 using namespace std;
-int dis[10005];
-int cnt[10005]
-struct edge{
-	int to;
-	int w;
+int h,t;
+int dis[10001];
+struct edge {
+	int to,w;
 };
-int n,m,s,t;
-int vis[10005];
+int n,m;
+int vis[10001];
+int cnt[10001];
 int main()
 {
+	int pp;
 	queue<int >q;
-	vector<edge> e[200005];
-	int x,y;
-	scanf("%d%d",&n,&m);
+	int ok=1;
+	vector <edge> e[50000];
+	cin>>n>>m;
 	for(int i=1;i<=m;i++)
 	{
-		scanf("%d%d",&x,&y);
-		e[x].push_back(a);
+		int x,y;
+		cin>>x>>y;
+		pp=x;
+		e[x].push_back((edge){y,-1});
+		e[y].push_back((edge){x,-1});
 	}
 	for(int i=1;i<=n;i++)
 	dis[i]=2147483647;
-	dis[s]=0;
-	q.push(s);
-	int ok = 1;
+	dis[pp]=0;
+	q.push(pp);
 	while(!q.empty())
 	{
 		int p=q.front();
 		vis[p]=0;
+		cout<<p<<endl;
 		q.pop();
-		int maxx=e[p].size();
-		for(int i=0;i<maxx;i++)
+		for(int i=0;i<e[p].size();i++)
 		if(dis[e[p][i].to]>dis[p]+e[p][i].w)
 		{
 			dis[e[p][i].to]=dis[p]+e[p][i].w;
@@ -43,12 +45,17 @@ int main()
 				vis[e[p][i].to]=1;
 				cnt[e[p][i].to]++;
 				if(cnt[e[p][i].to] > n)
-				ok = 0;
+				{
+					ok=0;
+					break;
+				}
 			}
 		}
+
+
 	}
 	if(ok)
-	printf("%d",dis[t]);
-	else printf("-1");
+	cout<<"yes"<<endl;
+	else cout<<"no"<<endl;
 	return 0;
 }
