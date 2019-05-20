@@ -1,5 +1,6 @@
 //UVA 11383
 //直接根据题意输出lx，ly就可以
+//二分图最佳完美匹配
 #include <cstring>
 #include <iostream>
 #include <cstdio>
