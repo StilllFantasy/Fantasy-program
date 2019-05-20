@@ -52,7 +52,7 @@ void input1()
 }
 int main()
 {
-    input2();
+    input1();
     for(int i=1;i<=n;i++)
     {
         if(i>=2)
