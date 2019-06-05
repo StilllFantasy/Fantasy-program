@@ -1,17 +1,17 @@
 #include <iostream>
 using namespace std;
-long long n;
-long long m;
+long long N;
+long long M;
 long long ans;
 long long main()
 {
-	cin >> n;
-	while(n>=9)
+	cin >> N;
+	while(N>=9)
 	{
-		n-=9;
+		N-=9;
 		ans+=9;
-		ans+=n%10;
-		n/=10;
+		ans+=N%10;
+		N/=10;
 	}
-	cout<<ans+n;
+	cout<<ans+N;
 }

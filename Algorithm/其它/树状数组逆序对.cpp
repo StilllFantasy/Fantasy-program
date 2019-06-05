@@ -40,8 +40,9 @@ int main()
     for (int i = 1; i <= n; i++)
     { 
         ans += get(key[i].b - 1);
+        //cout<<ans<<" ";
         add(key[i].b);
     }
-    cout << ans;
+    //cout << ans;
     return 0;
 }

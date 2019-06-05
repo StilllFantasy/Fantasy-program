@@ -1,12 +1,12 @@
 #include<iostream>
 using namespace std;
-int main()
+long longmain()
 {
     freopen("std.in","r",stdin);
 //    freopen("std.out","w",stdout);
-    int p;
-    int k;
-    int a,b;
+    long longp;
+    long longk;
+    long longa,b;
     cin>>k>>p>>a>>b;
     if(k>p)
     cout<<"k is bigger than p";

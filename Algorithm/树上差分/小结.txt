@@ -1,0 +1,3 @@
+分点差分和边差分
+点差分：int f = lca(a, b), cnt[a] += v; cnt[b] += v; cnt[f] -= v; cnt[far[f]] -= v
+边差分：把边权赋给点，每条边的边权赋给这条边的儿子节点，然后差分int f = lca(a, b) cnt[a]+=v;cnt[b]+=v;cnt[f]-=2*v

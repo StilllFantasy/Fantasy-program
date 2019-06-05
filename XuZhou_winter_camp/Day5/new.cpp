@@ -7,8 +7,8 @@ struct abc
     long long c;
 } box[5005];
 vector<long long>G[5005];
-long long n, xx, yy;
-long long cnt = 0;
+long long N, xx, yy;
+long long dis = 0;
 long long mx;
 long long d[5005];
 long long dp(long long x)
@@ -33,25 +33,25 @@ void prlong long(long long x)
 }
 long long main()
 {
-    cin >> n >> xx >> yy;
-    for (long long i = 1; i <= n; i++)
+    cin >> N >> xx >> yy;
+    for (long long i = 1; i <= N; i++)
     {
         long long a, b;
         cin >> a >> b;
         if (a <= xx || b <= yy)
             continue;
-        box[cnt].x = a;
-        box[cnt].y = b;
-        box[cnt].c = i;
-        cnt++;
+        box[dis].x = a;
+        box[dis].y = b;
+        box[dis].c = i;
+        dis++;
     }
-    for (long long i = 0; i < cnt; i++)
+    for (long long i = 0; i < dis; i++)
     {
-        for (long long j = 0; j < cnt; j++)
+        for (long long j = 0; j < dis; j++)
             if (box[i].x < box[j].x && box[i].y < box[j].y)
                 G[i].push_back(j);
     }
-    for (long long i = 0; i < cnt; i++)
+    for (long long i = 0; i < dis; i++)
     {
         d[i] = dp(i);
         mx = max(d[i], mx);
@@ -61,7 +61,7 @@ long long main()
     {
         cout<<mx<<endl;
         
-        for (long long i = 0; i < cnt; i++)
+        for (long long i = 0; i < dis; i++)
         {
             if (d[i] == mx)
             {

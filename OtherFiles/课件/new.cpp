@@ -23,12 +23,12 @@ long long search(long long k,long long l,long long r)
 }
 long long main()
 {
-    long long n;
+    long long N;
     long long k;
-    cin>>n;
-    for(long long i=1;i<=n;i++)
+    cin>>N;
+    for(long long i=1;i<=N;i++)
     cin>>num[i];
     cin>>k;
-    cout<<search(k,1,n);
+    cout<<search(k,1,N);
     return 0;
 }
