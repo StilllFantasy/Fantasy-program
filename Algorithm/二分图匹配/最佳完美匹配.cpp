@@ -18,7 +18,7 @@ bool findpath(int x)
             continue;
         tempDelta = lx[x] + ly[y] - G[x][y];
         if (tempDelta == 0)
-        { 
+        {
             visy[y] = true;
             if (match[y] == -1 || findpath(match[y]))
             {
@@ -36,11 +36,11 @@ void KM()
     for (int x = 0; x < nx; ++x)
     {
         for (int j = 0; j < ny; ++j)
-            slack[j] = INF; 
+            slack[j] = INF;
         while (true)
         {
             memset(visx, false, sizeof(visx));
-            memset(visy, false, sizeof(visy)); 
+            memset(visy, false, sizeof(visy));
             if (findpath(x))
                 break;
             else
@@ -87,7 +87,7 @@ void printans()
 void printmatch()
 {
     for (int i = 0; i < ny; i++)
-    cout << match[i] << " ";
+        cout << match[i] << " ";
     cout << endl;
 }
 int main()
