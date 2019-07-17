@@ -1,33 +1,18 @@
-#include <iostream>
-#include <algorithm>
 #include <stdio.h>
-using namespace std;
-int n, k;
-struct edge
+int max(int a,int b)
 {
-    int a;
-    int b;
-    int c;
-} e[10001];
-int m[140][140];
-int cnt;
-int f[500];
-int find(int x)
-{
-    if (f[x] == x)
-        return x;
-    return find(f[x]);
+    return a>b?a:b;
 }
-bool cmp(edge x, edge y)
-{
-    return x.c < y.c;
-}
-int key;
-int ans;
 int main()
 {
-    int t;
-    scanf("%d",&t);
-    printf("%d",t);
+    while(1)
+    {
+        int a,b,c;
+        scanf("%d",&a);
+        if(a==0)
+        break;
+        scanf("%d%d",&b,&c);
+        printf("the max number is %d\n",max(a,max(b,c)));
+    }
     return 0;
 }
