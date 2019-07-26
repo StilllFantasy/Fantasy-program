@@ -31,6 +31,7 @@ testloader = torch.utils.data.DataLoader(testset,batch_size=64,shuffle=True)
 
 # 对上面定义的Classifier类进行实例化
 model = Classifier()
+model.cuda()
 # 定义损失函数为负对数损失函数
 criterion = nn.NLLLoss()
 

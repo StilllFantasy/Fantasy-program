@@ -1,5 +1,11 @@
-import numpy as np
+import torch
+from torch.autograd import Variable
 
-a = np.array([1, 2, 3, 4, 5])
-print(a)
-print(a.clip(5, 4))
+print(torch.version.cuda)
+try:
+    gpu_data = Variable(torch.randn(3, 3)).cuda()
+    cpu_data = gpu_data.cpu()
+    print('Successful')
+except:
+    print('Faild')
+
