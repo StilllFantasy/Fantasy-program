@@ -19,7 +19,7 @@ class Classifier(nn.Module):
         x = F.relu(self.f2(x))
         x = F.relu(self.f3(x))
         x = F.log_softmax(self.f4(x), dim=1)
-        return x;
+        return x
 
 transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5,),(0.5,))])
 

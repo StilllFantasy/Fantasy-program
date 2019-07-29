@@ -1,37 +1,80 @@
-from socket import socket, SOCK_STREAM, AF_INET
-from datetime import datetime
+import torch
+import torchvision
+import torchvision.transforms as transforms
+from torch.utils.data import DataLoader
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+
+class ConvNet(nn.Module):
+    def __init__(self):
+        super(ConvNet, self).__init__()
+        self.conv1 = nn.Conv2d(3, 32, 3)
+        self.max_pool1 = nn.MaxPool2d(2)
+        self.conv2 = nn.Conv2d(32, 64, 3)
+        self.max_pool2 = nn.MaxPool2d(2)
+        self.conv3 = nn.Conv2d(64, 128, 3)
+        self.max_pool3 = nn.MaxPool2d(2)
+        self.conv4 = nn.Conv2d(128, 128, 3)
+        self.max_pool4 = nn.MaxPool2d(2)
+        self.fc1 = nn.Linear(6272, 512)
+        self.fc2 = nn.Linear(512, 2)
+        
+    def forward(self, x):
+        in_size = x.size(0)
+        x = self.conv1(x)
+        x = F.relu(x)
+        x = self.max_pool1(x)
+        x = self.conv2(x)
+        x = F.relu(x)
+        x = self.max_pool2(x)
+        x = self.conv3(x)
+        x = F.relu(x)
+        x = self.max_pool3(x)
+        x = self.conv4(x)
+        x = F.relu(x)
+        x = self.max_pool4(x)
+        # 展开
+        x = x.view(in_size, -1)
+        x = self.fc1(x)
+        x = F.relu(x)
+        x = self.fc2(x)
+        x = torch.sigmoid(x)
+        return x
+ 
+
+transform = transforms.Compose([
+    transforms.RandomResizedCrop(150),
+    transforms.ToTensor(),
+    transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+])
 
 
-def main():
-    # 1.创建套接字对象并指定使用哪种传输服务
-    # family=AF_INET - IPv4地址
-    # family=AF_INET6 - IPv6地址
-    # type=SOCK_STREAM - TCP套接字
-    # type=SOCK_DGRAM - UDP套接字
-    # type=SOCK_RAW - 原始套接字
-    server = socket(family=AF_INET, type=SOCK_STREAM)
-    # 2.绑定IP地址和端口(端口用于区分不同的服务)
-    # 同一时间在同一个端口上只能绑定一个服务否则报错
-    server.bind(('0.0.0.0', 8099))
-    # 3.开启监听 - 监听客户端连接到服务器
-    # 参数512可以理解为连接队列的大小
-    server.listen(512)
-    print('服务器启动开始监听...')
-    while True:
-        # 4.通过循环接收客户端的连接并作出相应的处理(提供服务)
-        # accept方法是一个阻塞方法如果没有客户端连接到服务器代码不会向下执行
-        # accept方法返回一个元组其中的第一个元素是客户端对象
-        # 第二个元素是连接到服务器的客户端的地址(由IP和端口两部分构成)
-        client, addr = server.accept()
-        print(str(addr) + '连接到了服务器.')
-        # 5.发送数据
-        client.send(str(datetime.now()).encode('utf-8'))
-        data = ''
-        indata = str(client.recv(1024))
-        print('接受到的数据：',indata)
-        # 6.断开连接
-        client.close() 
+names = ['cat', 'dog']
+
+net = torch.load('CNN-net2.pth')
+net.cuda()
+print('successfully load the net.')
 
 
-if __name__ == '__main__':
-    main()
+
+
+for t in range(1003, 1050):
+        imgpath = str('D:/DATA/test_data/dog/') + str(t) + '.jpg'
+        image = Image.open(imgpath)
+        image_ten = transform(image).cuda()
+        image_ten = image_ten.unsqueeze(0)
+        # print(image_ten.size())
+        with torch.no_grad():
+                output = net(image_ten)
+        print(output)
+        predict_value, predict_idx = torch.max(output, 1)  # 求指定维度的最大值，返回最大值以及索引
+        # predict_idx = 1 if predict_value >=0.5 else 0
+        plt.figure()
+        plt.imshow(np.array(image))
+        plt.title(names[predict_idx])
+        plt.axis('off')
+        plt.show()
